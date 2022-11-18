@@ -11,8 +11,43 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <!-- Adding and Updating tasks -->
+    <div class="task">
+        <!-- Switching between updating and adding -->
+        <div>
+            <button type="submit" class="home-btn" id="homebtn1" onclick="setButtonActive(0)">CHANGE TASK</button>
+            <button type="submit" class="home-btn" id="homebtn2" onclick="setButtonActive(1)">ADD NEW TASK</button>
+        </div>
+
+        <!-- form -->
+        <form method="post" class="form">
+            <div id="selecttask">
+                <div class="inputarea">
+                    <select name="task" id="updatetask" class="input">
+                        
+                    </select>
+                    <label for="updatetask" class="label">Select the Task</label>
+                </div>
+            </div>
+            <div class="inputarea">
+                <input type="text" name="task-name" id="task-name" class="input" placeholder="Name of Task">
+                <label for="task-name" class="label">Task Name</label>
+            </div>
+            <div class="inputarea">
+                <textarea name="task-description" id="task-description" class="input" placeholder="Description"></textarea>
+                <label for="task-description" class="label">Description</label>
+            </div>
+            <div>
+                <input type="submit" class="submit-btn" value="Add Task">
+            </div>
+        </form>
+    </div>
+
+    
     <script src="index.js"></script>
 </body>
 </html>

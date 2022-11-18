@@ -30,7 +30,7 @@
 
 /* Style for Task Box and Form */
 .bigbox{
-    margin-top: 7%;
+    margin-top: 4%;
     display: flex;
 }
 
@@ -124,16 +124,6 @@ a{
     font-weight: 600;
 }
 
-
-.flip-card {
-    background-color: transparent;
-    /* width: 400px; */
-    height: 200px;
-    border: 1px solid #f1f1f1;
-    perspective: 1000px;
-    margin-bottom: 2%;
-}
-
 /* This container is needed to position the front and back side */
 .flip-card-inner {
     position: relative;
@@ -182,6 +172,46 @@ a{
     padding: 5%;
 }
 
-.item-list{
-    margin-top: 7%;
+.optcard{
+    margin-top: 3%;
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.optcard i{
+    font-size: 40px;
+    color: red;
+    margin: auto;
+}
+
+.optcard i:hover{
+    cursor: pointer;
+}
+
+.flip-card {
+    background-color: transparent;
+    margin-top: 11%;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    margin-bottom: 2%;
+}
+
+@media (min-width:1000px){
+    .flip-card {
+        background-color: transparent;
+        margin-top: 5%;
+        height: 200px;
+        border: 1px solid #f1f1f1;
+        perspective: 1000px;
+        margin-bottom: 2%;
+    }
+}
+
+.myname{
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin: 200px auto 50px;
 }

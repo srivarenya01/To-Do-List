@@ -27,19 +27,27 @@ let selec = document.getElementsByTagName("select")[0];
 btn.addEventListener("click", event=>{
     if(btn.value == 'add'){
         taskcard();
-        update();
-        optionchange();
+        updateall();
     }else{
         if(selec.value != -1){
-            changecard(selec.value);
-            update();
-            optionchange();
+            changetask(selec.value);
         }
     }
     document.forms[0].elements["task-name"].value = "";
     document.forms[0].elements["task-description"].value = "";
     document.forms[0].elements["task-description"].style.height = "70px";
 })
+
+function updateall(){
+    update();
+    optionchange();
+}
+
+function changetask(ind){
+    changecard(ind);
+    updateall();
+}
+
 
 function changecard(ind){
     lists[ind].childNodes[0].childNodes[0].childNodes[0].innerHTML = document.forms[0].elements["task-name"].value;
@@ -49,17 +57,21 @@ function changecard(ind){
 selec.addEventListener("click", ()=>{
     selec.addEventListener("change", ()=>{
         ind = selec.value;
-        if(ind != -1){
-            nameopt = lists[ind].childNodes[0].childNodes[0].childNodes[0].innerHTML;
-            descopt = lists[ind].childNodes[0].childNodes[1].childNodes[0].innerHTML;
-        }else{
-            nameopt = "";
-            descopt = "";
-        }
-        document.forms[0].elements["task-name"].value = nameopt;
-        document.forms[0].elements["task-description"].value = descopt;
+        changearea(ind);
     })
 })
+
+function changearea(ind){
+    if(ind != -1){
+        nameopt = lists[ind].childNodes[0].childNodes[0].childNodes[0].innerHTML;
+        descopt = lists[ind].childNodes[0].childNodes[1].childNodes[0].innerHTML;
+    }else{
+        nameopt = "";
+        descopt = "";
+    }
+    document.forms[0].elements["task-name"].value = nameopt;
+    document.forms[0].elements["task-description"].value = descopt;
+}
 
 function optionchange(){
     var sel = document.getElementById("updatetask");
@@ -81,6 +93,8 @@ function update(){
     parent.innerHTML = "";
     for(var i=0;i<lists.length;i++){
         lists[i].id = i;
+        lists[i].childNodes[1].childNodes[0].id = "icon1"+String(i);
+        lists[i].childNodes[1].childNodes[1].id = "icon2"+String(i);
         parent.appendChild(lists[i]);
     }
 }
@@ -119,7 +133,38 @@ function taskcard(){
         cardinner.appendChild(cardfront);
         cardinner.appendChild(cardback);
 
+        
+        const icon1 = document.createElement("i");
+        icon1.classList.add("fa");
+        icon1.classList.add("fa-pencil");
+        const icon2 = document.createElement("i");
+        icon2.classList.add("fa");
+        icon2.classList.add("fa-trash");
+
+        icon1.addEventListener("click", ()=>{
+            let clickediconid = icon1.id.slice(5);
+            let selecttask = document.getElementsByTagName("select")[0];
+            setButtonActive(0);
+            selecttask.value = clickediconid;
+            changearea(clickediconid);
+            window.scrollTo(0,0);
+
+        })
+
+        icon2.addEventListener("click", ()=>{
+            let clickediconid = icon1.id.slice(5);
+            lists.splice(clickediconid,1);
+            updateall();
+        })
+        
+        const optcard = document.createElement("div");
+        optcard.classList.add("optcard");
+        optcard.appendChild(icon1);
+        optcard.appendChild(icon2);
+
+        
         newcard.appendChild(cardinner);
+        newcard.appendChild(optcard);
         lists.push(newcard);
     }
 }

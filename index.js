@@ -1,4 +1,4 @@
-$(document).ready(() =>{
+function afterready(){
     var lists = []
 
     let btn = document.getElementById("submitBtn");
@@ -232,6 +232,8 @@ $(document).ready(() =>{
         selec.addEventListener("change", ()=>{
             ind = selec.value;
             changearea(ind);
+            $("#task-name").removeAttr("disabled");
+            $("#task-description").removeAttr("disabled");
         })
     })
 
@@ -251,9 +253,24 @@ $(document).ready(() =>{
             }
         })
     }
-    
+
     setButtonActive(1);
-});
+}
+
+$(document).ready(afterready);
+
+function emptyall(){
+    document.forms[0].elements["task-name"].value = "";
+    document.forms[0].elements["task-description"].value = "";
+}
+
+function clearall(){
+    let inputval = document.getElementsByClassName("inputarea");
+    for(let i=0;i<inputval.length;i++){
+        inputval[i].click();
+    }
+    emptyall();
+}
 
 // Function to set element active
 function setButtonActive(ind){
@@ -265,6 +282,8 @@ function setButtonActive(ind){
         document.getElementById("selecttask").classList.add("hide");
         document.getElementsByClassName("submit-btn")[0].innerHTML =  "Add Task";
         document.getElementsByClassName("submit-btn")[0].value =  "add";
+        $("#task-name").removeAttr("disabled");
+        $("#task-description").removeAttr("disabled");
     }else{
         a = homebtn[0];
         b = homebtn[1];
@@ -272,7 +291,10 @@ function setButtonActive(ind){
         document.getElementById("selecttask").classList.remove("hide");
         document.getElementsByClassName("submit-btn")[0].innerHTML =  "Update Task";
         document.getElementsByClassName("submit-btn")[0].value = "upd";
+        $("#task-name").attr("disabled", "disabled");
+        $("#task-description").attr("disabled", "disabled");
     }
     a.classList.add("active-btn");
     b.classList.remove("active-btn");
+    clearall();
 }

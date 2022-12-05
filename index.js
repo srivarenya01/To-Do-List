@@ -20,6 +20,7 @@ function afterready(){
     }
 
     function update(){
+        
         const parent = document.getElementsByClassName("row")[0];
         parent.innerHTML = "";
         for(var i=0;i<lists.length;i++){
@@ -128,6 +129,10 @@ function afterready(){
                 let selecttask = document.getElementsByTagName("select")[0];
                 setButtonActive(0);
                 selecttask.value = clickediconid;
+                $("#task-name").removeAttr("disabled");
+                $("#task-description").removeAttr("disabled");
+                $("#task-name").css("cursor", "text");
+                $("#task-description").css("cursor", "text");
                 changearea(clickediconid);
                 window.scrollTo(0,0);
 

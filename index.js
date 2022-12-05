@@ -173,7 +173,7 @@ function afterready(){
         }
     }
 
-    function changecolors(){
+    function changecolors(i){
         nameopt = document.forms[0].elements["task-name"].value;
         descopt = document.forms[0].elements["task-description"].value;
         let k = 0;
@@ -189,11 +189,16 @@ function afterready(){
             $("#task-description").addClass("notfilled");
             k++;
         }
+        if(i === 0){
+            btn.removeEventListener("mouseleave", mouseleft);
+        }else{
+            btn.addEventListener("mouseleave", mouseleft);
+        }
         return k;
     };
 
     function submitted(){
-        let f = changecolors();
+        let f = changecolors(0);
         if(f === 0){
             if(btn.value == 'add'){
                 taskcard();
@@ -209,11 +214,33 @@ function afterready(){
         }
     }
 
+    function mouseleft(){
+        $("#task-name").removeClass("notfilled");
+        $("#task-description").removeClass("notfilled");
+    }
+
+    function Selection(i){
+        if(i == 0){
+            document.getElementById("task-name").disabled = "disabled";
+            document.getElementById("task-name").value = "";
+            document.getElementById("task-name").style.cursor = "not-allowed";
+            document.getElementById("task-description").disabled = "disabled";
+            document.getElementById("task-description").value = "";
+            document.getElementById("task-description").style.cursor = "not-allowed";
+        }else{
+            document.getElementById("task-name").disabled = "";
+            document.getElementById("task-name").style.cursor = "text";
+            document.getElementById("task-description").disabled = "";
+            document.getElementById("task-description").style.cursor = "text";
+        }
+    }
+
     btn.addEventListener("click",()=>{
-        submitted()
+        submitted();
     });
+    
     btn.addEventListener("enter",()=>{
-        submitted()
+        submitted();
     });
     
 
@@ -223,7 +250,7 @@ function afterready(){
         if(nameopt!="" && descopt!=""){
             btn.style.cursor = "pointer";
         }else{
-            changecolors();
+            changecolors(1);
             btn.style.cursor = "not-allowed";
         }
     });
@@ -231,9 +258,12 @@ function afterready(){
     selec.addEventListener("click", ()=>{
         selec.addEventListener("change", ()=>{
             ind = selec.value;
-            changearea(ind);
-            $("#task-name").removeAttr("disabled");
-            $("#task-description").removeAttr("disabled");
+            if(ind == -1){
+                Selection(0);
+            }else{
+                Selection(1);
+                changearea(ind);
+            }
         })
     })
 
@@ -284,6 +314,8 @@ function setButtonActive(ind){
         document.getElementsByClassName("submit-btn")[0].value =  "add";
         $("#task-name").removeAttr("disabled");
         $("#task-description").removeAttr("disabled");
+        $("#task-name").css("cursor", "text");
+        $("#task-description").css("cursor", "text");
     }else{
         a = homebtn[0];
         b = homebtn[1];
@@ -293,6 +325,8 @@ function setButtonActive(ind){
         document.getElementsByClassName("submit-btn")[0].value = "upd";
         $("#task-name").attr("disabled", "disabled");
         $("#task-description").attr("disabled", "disabled");
+        $("#task-name").css("cursor", "not-allowed");
+        $("#task-description").css("cursor", "not-allowed");
     }
     a.classList.add("active-btn");
     b.classList.remove("active-btn");

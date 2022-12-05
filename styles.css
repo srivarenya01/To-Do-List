@@ -75,7 +75,7 @@
     left: 15px;
     padding: 0 4px;
     background-color: white;
-    color: #DADCE0;
+    color: #888e9b;
     font-size: 16px;
     transition: 0.5s;
     z-index: 0;
@@ -135,7 +135,7 @@ a{
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner{
+.flip-card-inner:hover{
     transform: rotateY(180deg);
 }
 
@@ -176,6 +176,10 @@ a{
     overflow-y: auto;
 }
 
+.flip-card-front .innertext{
+    margin-top: 50px;
+}
+
 
 .innertext{
     word-wrap: break-word;
@@ -209,6 +213,10 @@ a{
         perspective: 1000px;
         margin-bottom: 2%;
     }
+
+    .flip-card-front .innertext{
+        margin-top: 60px;
+    }    
 }
 
 .myname{
